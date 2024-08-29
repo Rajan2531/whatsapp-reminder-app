@@ -10,6 +10,7 @@
   "author": "Rajan chouhan",
   "license": "ISC",
   "dependencies": {
+    "@railway/cli": "^3.11.4",
     "axios": "^1.7.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

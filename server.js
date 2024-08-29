@@ -2,7 +2,7 @@ const app = require("./app")
 const axios = require("axios");
 const dotenv = require("dotenv");
 const getCompletion = require("./openai")
-
+dotenv.config({path: "./config.env"})
 
 
 
