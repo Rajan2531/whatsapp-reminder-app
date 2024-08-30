@@ -76,7 +76,11 @@ dotenv.config({path: "./config.env"})
 
 // getting 
 //getCompletion("how to eat egg", 10).then(data => console.log(data.choices[0].message.content));
-
+app.get("/", (req, res)=> {
+    res.status(200).json({
+        status:"working"
+    })
+})
 
 app.get("/webhook", (req, res)=> {
     const mode = req.query["hub.mode"];
