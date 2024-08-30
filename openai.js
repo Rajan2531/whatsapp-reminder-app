@@ -11,6 +11,7 @@ const getCompletion =async(prompt, token_len = 20) => {const data = await onenai
     temperature: 0.8,
     max_tokens:token_len
 })
+console.log(data.choices[0].message.content);
 return data}
 
 module.exports = getCompletion;

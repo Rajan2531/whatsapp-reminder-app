@@ -75,6 +75,15 @@ const app = require("./app")
 //getCompletion("how to eat egg", 10).then(data => console.log(data.choices[0].message.content));
 
 
+// connection to database
+const mongoose = require("mongoose");
+const Mode = require("./model/modes")
+const url = process.env.DATABASE_URL.replace("<password>", process.env.PASSWORD);
+const db = mongoose.connect(url).then(()=>{
+     
+    console.log("database connected.")
+})
+
 
 app.listen(process.env.PORT, () => {
     console.log("server running on port 3000.");
