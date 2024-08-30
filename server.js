@@ -1,8 +1,5 @@
 const app = require("./app")
-const axios = require("axios");
-const dotenv = require("dotenv");
-const getCompletion = require("./openai")
-dotenv.config({path: "./config.env"})
+
 
 
 
@@ -76,49 +73,7 @@ dotenv.config({path: "./config.env"})
 
 // getting 
 //getCompletion("how to eat egg", 10).then(data => console.log(data.choices[0].message.content));
-app.get("/", (req, res)=> {
-    res.status(200).json({
-        status:"working"
-    })
-})
 
-app.get("/webhook", (req, res)=> {
-    const mode = req.query["hub.mode"];
-    const challenge = req.query["hub.challenge"];
-    const token = req.query["hub.token"];
-    if(mode === "subscribe" && token == process.env.whatsapp_webhook_verify_token) {
-        res.status(200).send(challenge);
-    } else {
-        res.sendStatus(403);
-    }
-
-});
-
-
-app.post("/webhook", async (req, res)=> {
-    const message = req.body.entry?.changes[0]?.value?.messages?.[0];
-    if(message?.type === "text") {
-        const business_phone_number_id = req.body.entry?.changes[0]?.value?.metadata?.phone_number_id;
-
-        // sending message as reply
-        await axios({
-            url:` https://graph.facebook.com/v20.0/${business_phone_number_id}/messages `,
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${process.env.whatsapp_api}`,
-                "Content-Type": "application/json"
-            },
-            data:{
-                "messaging_product": "whatsapp",
-                "to":message.from,
-                "text": {body: "Echo: " + message.text.body},
-                "context": {
-                    "message_id": message_id
-                }
-            }
-        })
-    }
-})
 
 
 app.listen(process.env.port, () => {
