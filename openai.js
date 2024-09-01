@@ -5,7 +5,7 @@ const onenai = new OpenAI({
     apiKey:process.env.OPENAI_API_KEY_USER
 })
 
-const getCompletion =async(prompt, token_len = 20) => {const data = await onenai.chat.completions.create({
+const getCompletion =async(prompt, token_len = 100) => {const data = await onenai.chat.completions.create({
     model:"gpt-3.5-turbo",
     messages:[{"role":"user", "content": prompt}],
     temperature: 0.8,
